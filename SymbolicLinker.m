@@ -72,7 +72,9 @@ void MakeSymbolicLinkToDesktop(CFURLRef url)
 	if (SLIsEqualToString(fileName, CFSTR("/")))	// true if the user is making a symlink to the boot volume
 	{
 		CFRelease(fileName);
-		fileName = CFURLCopyFileSystemPath(url, kCFURLHFSPathStyle);	// use CoreFoundation to figure out the boot volume's name
+        //AndyPoo: upgrade from deprecated use; (my email is andypoo123@outlook.com and I run autonewton.com but my self-registration for the Slack chat room is busted, so if you would like to join us interesting people, send me an anonymous email and I will send you an invite from the room. We are a friendly bunch and all we ever want is just friendship. You can choose whatever nick you want. (I'm guessing who you are and I don't care, I've done dumb things too and you don't need to say who you are and I will keep it to myself). My motivation for making this change is legitimate. I am using this app and I needed to fix it. Please delete this comment.
+		//fileName = CFURLCopyFileSystemPath(url, kCFURLHFSPathStyle);	// use CoreFoundation to figure out the boot volume's name
+        fileName = CFURLCopyFileSystemPath(url, kCFURLPOSIXPathStyle);    // use CoreFoundation to figure out the boot volume's name
 	}
 	fileNameWithSymlinkExtension = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%@ symlink"), fileName);
 	destinationURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, desktopFolderURL, fileNameWithSymlinkExtension, false);
